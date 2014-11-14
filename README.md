@@ -131,7 +131,7 @@ return array(
 In urmatoarele randuri v-om utiliza ca baza de date SQLite, pentru aceasta setare inlocuim in linia 33: 'default' => 'mysql', cu 'sqlite'.
 
 In pagina app/routes.php modificam:
-```
+```php
 Route::get('/', function()
 {
   //return View::make('hello');
@@ -156,3 +156,105 @@ Laravel development server started on http://localhost:8000
 In browser introducem adresa http://localhost:8000.
 Si baza  de date este creata, dupa cum se vede si in imagine:
 ![imagine](https://lh4.googleusercontent.com/QZqT-BkCCGeIZjuoKd3RJW6UAn0rwVpwqK55ZwneHiQ=w332-h207-p-no)
+### Migrations
+Crearea unei baze de date cu Migration:
+`
+mhcrnl@mhcrnl:~/Desktop/LaravelBazededate$ php artisan migrate:make create_games
+Created Migration: 2014_11_14_163802_create_games
+Generating optimized class loader
+Compiling common classes
+Compiling views
+
+`
+Obtinem urmatorul cod:
+```php
+<?php //app/database/migration/2014_11_14_163802_create_games
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateGames extends Migration {
+
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    //
+  }
+
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    //
+  }
+
+}
+
+```
+Modificam codul dupa cum urmeaza:
+```php
+<?php //app/database/migration/2014_11_14_163802_create_games
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateGames extends Migration {
+
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    //
+    Schema::create('games', function($table)
+    {
+      $table->increments('id');
+      $table->text('name', 128);
+      $table->text('description');
+    });
+  }
+
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    //
+    Schema::drop('games');
+  }
+
+}
+
+```
+Rulam in terminal comanda:
+`
+mhcrnl@mhcrnl:~/Desktop/LaravelBazededate$ php artisan migrate
+**************************************
+*     Application In Production!     *
+**************************************
+
+Do you really wish to run this command?
+Migration table created successfully.
+Migrated: 2014_11_14_163802_create_games
+
+`
+Acum trebuie sa realizam un model:
+```php
+<?php //app/models/Game.php
+class Game extends Eloquent
+{
+
+}
+```
+Modificam routes.php:

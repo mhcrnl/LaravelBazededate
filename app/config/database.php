@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'default' => 'sqlite',
+	'default' => 'sqlite_1',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -49,6 +49,11 @@ return array(
 		'sqlite' => array(
 			'driver'   => 'sqlite',
 			'database' => __DIR__.'/../database/production.sqlite',
+			'prefix'   => '',
+		),
+		'sqlite_1' => array(
+			'driver'   => 'sqlite',
+			'database' => __DIR__.'/../database/production_1.sqlite',
 			'prefix'   => '',
 		),
 

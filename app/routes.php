@@ -14,13 +14,35 @@
 Route::get('/', function()
 {
 	//return View::make('hello');
-	Schema::create('users', function($table)
+	Schema::create('userstwo', function($table1)
 	{
-		$table->increments('id');
-		$table->text('username', 32);
-		$table->text('email', 320);
-		$table->text('password', 60);
-		$table->timestamps();
+		$table1->increments('id');
+		$table1->text('username', 32);
+		$table1->text('email', 320);
+		$table1->text('password', 60);
+		$table1->timestamps();
 
 	});
 });
+/*
+Route::get('/', function()
+{
+	Schema::create('game', function($table)
+	{
+		//$table->increments('id');
+		$table->text('name');
+		$table->text('description');
+	});
+});
+
+Route::get('/', function(){
+	$game = new Game;
+	$game->name= 'Numele jocului';
+	$game->description= 'Descrierea jocului';
+	$game->save();
+});
+Route::get('/', function(){
+	$game=Game::find(1);
+	return $game->name;
+});
+*/
