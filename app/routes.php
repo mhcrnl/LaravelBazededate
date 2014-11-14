@@ -13,5 +13,14 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	//return View::make('hello');
+	Schema::create('users', function($table)
+	{
+		$table->increments('id');
+		$table->text('username', 32);
+		$table->text('email', 320);
+		$table->text('password', 60);
+		$table->timestamps();
+
+	});
 });
